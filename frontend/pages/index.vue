@@ -1,7 +1,9 @@
 <template>
-  <Login/>
+  <NavBar yo="yooo"/>
 </template>
 
 <script>
-export default {}
+export default {
+
+}
 </script>
