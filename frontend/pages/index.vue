@@ -1,5 +1,5 @@
 <template>
-  <NavBar yo="yooo"/>
+  <NavBar :authenticated="authenticated"/>
 </template>
 
 <script>
@@ -9,7 +9,9 @@ export default {
       const res = await $axios.get('/admin/checkAuthStatus', {
         withCredentials: true,
       });
-      console.log(res.data);
+      return{
+        authenticated: res.data.authenticated
+      }
     } catch (error) {
       console.log(error);
     }
