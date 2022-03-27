@@ -1,12 +1,29 @@
 <template>
     <div>
-        <form class="login-form-wrapper" @submit.prevent="loginAdmin">
+        <form class="register-form-wrapper" @submit.prevent="registerAdmin">
 
             <div class="register-form-title">
-                <h3>Login form</h3>
+                <h3>Register form</h3>
             </div>
 
-            <ul class="login-from-inputs">
+            <ul class="register-from-inputs">
+
+                <!-- firstname -->
+                <li>
+
+                    <label for="firstname">firstname</label>
+                    <input type="text" v-model="first_name.value" name="firstname" id="firstname">
+                    <span>{{first_name.error}}</span>
+
+                </li>
+
+                <!-- lastname -->
+                <li>
+                    <label for="lastname">lastname</label>
+                    <input type="text" v-model="last_name.value" name="lastname" id="lastname">
+                    <span>{{last_name.error}}</span>
+
+                </li>
 
                 <!-- username -->
                 <li>
@@ -26,7 +43,14 @@
 
                 </li>
 
-                
+                <!-- password -->
+                <li>
+
+                    <label for="password">password</label>
+                    <input type="password" v-model="password.value" name="password" id="password">
+                    <span>{{password.error}}</span>
+
+                </li>
                 
             </ul>
             
@@ -41,11 +65,20 @@
 <script>
 export default {
     methods: {
-        async loginAdmin(){
+        async registerAdmin(){
             try {
                 const {
+                    first_name: {
+                        value:first_name
+                    }, 
+                    last_name: {
+                        value:last_name
+                    }, 
                     email: {
                         value:email
+                    }, 
+                    password: {
+                        value:password
                     }, 
                     username: {
                         value:username
@@ -53,6 +86,9 @@ export default {
                 } = this
 
                 const body = {
+                    first_name,
+                    last_name,
+                    password,
                     username,
                     email
                 }
@@ -63,11 +99,12 @@ export default {
                     ...body
                 }
 
-                const url = '/admin/login'
+                const url = '/admin/register'
                 
                 const res = await this.$axios.post(url, config);
-                this.$router.push('/checkMail');
+
                 console.log(res.data);
+                this.$router.push('/checkMail');
             } catch (error) {
                 console.log(error.message);
             }
@@ -79,7 +116,19 @@ export default {
                 value: '',
                 error: null
             },
+            first_name: {
+                value: '',
+                error: null
+            },
+            last_name: {
+                value: '',
+                error: null
+            },
             email: {
+                value: '',
+                error: null
+            },
+            password: {
                 value: '',
                 error: null
             }
@@ -93,23 +142,23 @@ export default {
 </script>
 
 <style >
-.login-form-wrapper{
+.register-form-wrapper{
     width: 50%;
     padding: 40px;
     margin: auto;
     border: 3px solid black;
     border-radius: 15px;
 }
-.login-form-title  {
+.register-form-title  {
     margin-bottom: 20px;
     font-size: 1.2em;
 }
 
-.login-from-inputs label {
+.register-from-inputs label {
     display: inline-block;
     min-width: 100px;
 }
-.login-from-inputs li {
+.register-from-inputs li {
     margin: 10px;
     list-style-type: none;
 }
@@ -119,7 +168,7 @@ export default {
     padding: 5px 10px;
 }
 
-.login-from-inputs{
+.register-from-inputs{
     display: flex;
     flex-direction: column;
     justify-content: center;
