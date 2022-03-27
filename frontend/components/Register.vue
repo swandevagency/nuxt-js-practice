@@ -92,9 +92,19 @@ export default {
                     username,
                     email
                 }
+                const headers = {}
 
-                const res = await this.$axios.post("http://localhost:8080/api/v1/admin/register", body);
+                const config = {
+                    headers,
+                    ...body
+                }
+
+                const url = '/admin/register'
+                
+                const res = await this.$axios.post(url, config);
+
                 console.log(res.data);
+                this.$router.push('/checkMail');
             } catch (error) {
                 console.log(error.message);
             }

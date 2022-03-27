@@ -33,6 +33,13 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ['@nuxtjs/axios'],
+  axios: {
+    baseURL: "http://localhost:8080/api/v1",
+    // credentials: true,
+    // init(axios) {
+    //   axios.defaults.withCredentials = true
+    // }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
